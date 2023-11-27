@@ -24,7 +24,7 @@ const FinalResult = () => {
     Twitch,
     Twitter,
     Dribbble,
-  } = Object.fromEntries(urlParams.entries());
+  } = Object.fromEntries(urlParams?.entries());
 
   let links: any = [];
 
