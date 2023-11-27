@@ -48,7 +48,6 @@ const Preview = ({ preview, setPreview }: Props) => {
     }, 1000);
     shortenUrl(finalUrl).then(res => {
       setShortUrl(res);
-      console.log(res);
     });
   };
 

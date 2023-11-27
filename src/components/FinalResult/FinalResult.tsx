@@ -3,13 +3,14 @@ import Preview from "../Preview/Preview";
 import { FinalResultStyle } from "./FinalResult.style";
 import { useProfileStore } from "@/store/profile";
 import { useLinksStore } from "@/store/links";
-// @ts-ignore
 import { v4 as uuidv4 } from "uuid";
 
 const FinalResult = () => {
   const { setProfileInfo } = useProfileStore();
   const { setLinks } = useLinksStore();
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParams: any =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search);
   const {
     fullName,
     email,
