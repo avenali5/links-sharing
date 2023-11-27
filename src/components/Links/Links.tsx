@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import LinkElement from "./LinkElement";
 import Button from "../Button/Button";
 import { useLinksStore } from "@/store/links";
@@ -7,7 +7,11 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { socialOptions } from "@/utils/constants";
 
-const Links = ({ setPreview }) => {
+type Props = {
+  setPreview: Dispatch<SetStateAction<boolean>>;
+};
+
+const Links = ({ setPreview }: Props) => {
   const { links, setLinks } = useLinksStore();
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const handleAddLink = () => {
