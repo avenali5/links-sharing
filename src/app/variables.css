@@ -1,0 +1,14 @@
+.light-mode {
+  --main_background: #fafafa;
+  --box_background: #ffffff;
+  --accent_color: #633bfe;
+  --font_color: #292929;
+  --second_font_color: #939393;
+}
+.dark-mode {
+  --main_background: #0a0a0a;
+  --box_background: #181818;
+  --accent_color: #633bfe;
+  --font_color: #ffffff;
+  --second_font_color: rgb(192, 192, 192);
+}
