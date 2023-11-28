@@ -33,7 +33,7 @@ const Preview = ({ preview, setPreview }: Props) => {
   });
 
   const generateShortUrl = () => {
-    const url = `${window.location.host}/user?${
+    const url = `https://${window.location.host}/user?${
       profileInfo.fullName && `fullName=${profileInfo.fullName}`
     }&${profileInfo.job && `job=${profileInfo.job}`}&${
       profileInfo.email && `email=${profileInfo.email}`
@@ -46,6 +46,7 @@ const Preview = ({ preview, setPreview }: Props) => {
     setTimeout(() => {
       setModal(true);
     }, 1000);
+    console.log(finalUrl);
     shortenUrl(finalUrl).then(res => {
       setShortUrl(res);
     });
