@@ -4,9 +4,10 @@ import { FinalResultStyle } from "./FinalResult.style";
 import { useProfileStore } from "@/store/profile";
 import { useLinksStore } from "@/store/links";
 import { v4 as uuidv4 } from "uuid";
+import { LinkElement, SearchParams } from "@/utils/types/types";
 
 type Props = {
-  searchParams: any;
+  searchParams: SearchParams;
 };
 
 const FinalResult = ({ searchParams }: Props) => {
@@ -19,79 +20,79 @@ const FinalResult = ({ searchParams }: Props) => {
     job,
     bio,
     color,
-    github,
-    linkedin,
-    behance,
-    youtube,
-    twitch,
-    twitter,
-    dribbble,
+    Github,
+    Linkedin,
+    Behance,
+    Youtube,
+    Twitch,
+    Twitter,
+    Dribbble,
   } = searchParams;
 
-  let links: any = [];
+  let links: LinkElement[] | any = [];
 
   links = [
     ...links,
-    ...(github
+    ...(Github
       ? [
           {
             id: uuidv4(),
             platform: "Github",
-            link: github,
+            link: Github,
           },
         ]
       : ""),
-    ...(linkedin
+    ...(Linkedin
       ? [
           {
             id: uuidv4(),
             platform: "Linkedin",
-            link: linkedin,
+            link: Linkedin,
           },
         ]
       : ""),
-    ...(behance
+    ...(Behance
       ? [
           {
             id: uuidv4(),
             platform: "Behance",
-            link: behance,
+            link: Behance,
           },
         ]
       : ""),
-    ...(dribbble
+    ...(Dribbble
       ? [
           {
             id: uuidv4(),
             platform: "Dribbble",
-            link: dribbble,
+            link: Dribbble,
           },
         ]
       : ""),
-    ...(twitter
+    ...(Twitter
       ? [
           {
             id: uuidv4(),
             platform: "Twitter",
-            link: twitter,
+            link: Twitter,
           },
         ]
       : ""),
-    ...(youtube
+    ...(Youtube
       ? [
           {
             id: uuidv4(),
             platform: "Youtube",
-            link: youtube,
+            link: Youtube,
           },
         ]
       : ""),
-    ...(twitch
+    ...(Twitch
       ? [
           {
             id: uuidv4(),
             platform: "Twitch",
-            link: twitch,
+            link: Twitch,
           },
         ]
       : ""),

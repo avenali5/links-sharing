@@ -7,6 +7,8 @@ import { useProfileStore } from "@/store/profile";
 import { useLinksStore } from "@/store/links";
 import { shortenUrl } from "@/utils/hooks/useShortUrl";
 import Modal from "../Modal/Modal";
+import { ProfileInfo } from "@/utils/types/types";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {
   setPreview?: Dispatch<SetStateAction<boolean>>;
@@ -19,8 +21,9 @@ const Preview = ({ preview, setPreview }: Props) => {
   const [modal, setModal] = useState(false);
   const [shortUrl, setShortUrl] = useState("");
   const [copied, setCopied] = useState(false);
-
-  let query: any = {
+  const [loading, setLoading] = useState(false);
+  const [showFullURL, setShowFullURL] = useState(false);
+  let query: ProfileInfo = {
     fullName: profileInfo.fullName,
     job: profileInfo.job,
     email: profileInfo.email,
@@ -43,18 +46,30 @@ const Preview = ({ preview, setPreview }: Props) => {
 
     const linkParams = links.map(link => `${link.platform}=${link.link}`);
     const finalUrl = `${url}&${linkParams.join("&")}`;
+
     setTimeout(() => {
       setModal(true);
-    }, 1000);
-    console.log(finalUrl);
-    shortenUrl(finalUrl).then(res => {
-      setShortUrl(res);
-    });
+    }, 500);
+
+    const hasShortened = localStorage.getItem("shortened");
+
+    if (hasShortened) {
+      setShowFullURL(true);
+    } else {
+      shortenUrl(finalUrl)
+        .then(res => {
+          localStorage.setItem("shortened", "true");
+          setShortUrl(res);
+        })
+        .catch(() => {
+          setShowFullURL(true);
+        });
+    }
   };
 
-  const copyUrl = () => {
+  const copyUrl = (url: string) => {
     navigator.clipboard
-      .writeText(shortUrl)
+      .writeText(url)
       .then(() => {
         setCopied(true);
         setTimeout(() => {
@@ -62,7 +77,7 @@ const Preview = ({ preview, setPreview }: Props) => {
         }, 1000);
       })
       .catch(() => {
-        alert("err");
+        alert("Could not copy URL");
       });
   };
 
@@ -90,13 +105,31 @@ const Preview = ({ preview, setPreview }: Props) => {
         </div>
       </div>
       <Modal onClose={() => setModal(false)} visible={modal}>
-        <h3>Your short URL is:</h3>
+        {loading ? (
+          <Spinner />
+        ) : !loading && !showFullURL ? (
+          <div>
+            <h3>Your short URL is:</h3>
 
-        <p className='url' onClick={copyUrl}>
-          <Icon icon={!copied ? "mdi:content-copy" : "mdi:check"} />
-          {shortUrl}
-        </p>
-        <p>Copy & share it with the world!</p>
+            <p className='url' onClick={() => copyUrl(shortUrl)}>
+              <Icon icon={!copied ? "mdi:content-copy" : "mdi:check"} />
+              {shortUrl}
+            </p>
+            <p>Copy & share it with the world!</p>
+          </div>
+        ) : (
+          <div>
+            <h3>You already shortened a URL</h3>
+            <p style={{ margin: ".7rem 0" }}>
+              This is a portfolio project so shortenings are restricted
+            </p>
+            <p>Click on the button to copy your full URL</p>
+            <p className='url' onClick={() => copyUrl(window.location.href)}>
+              <Icon icon={!copied ? "mdi:content-copy" : "mdi:check"} />
+              Your long URL
+            </p>
+          </div>
+        )}
       </Modal>
     </PreviewModal>
   );

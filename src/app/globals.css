@@ -41,6 +41,7 @@ html {
   transition: 0.3s all;
   border: 1px solid transparent;
   background: var(--box_background);
+  color: var(--font_color);
 }
 .input:focus {
   border-color: var(--accent_color);

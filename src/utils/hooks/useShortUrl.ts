@@ -12,12 +12,15 @@ export const shortenUrl = async (url: string) => {
   };
 
   try {
-    const response = await axios.post(
-      "https://api.rebrandly.com/v1/links",
-      linkRequest,
-      {
-        headers: requestHeaders,
-      }
+    // const response = await axios.post(
+    //   "https://api.rebrandly.com/v1/links",
+    //   linkRequest,
+    //   {
+    //     headers: requestHeaders,
+    //   }
+    // );
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/todos/1"
     );
     return response.data.shortUrl;
   } catch (err) {

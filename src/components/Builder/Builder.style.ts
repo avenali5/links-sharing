@@ -12,6 +12,7 @@ export const BuilderStyle = styled.div`
   position: sticky;
   position: -webkit-sticky;
   top: 1rem;
+  color: var(--font_color);
   .outer-wrapper {
     border: 2px solid lightgrey;
     padding: 0.5rem;

@@ -3,11 +3,12 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect, useState } from "react";
 
 import SocialOptions from "../SocialOptions/SocialOptions";
+import { LinkElement } from "@/utils/types/types";
 
 type Props = {
-  link: any;
-  onChange: (val: any) => void;
-  onRemove: (val: any) => void;
+  link: LinkElement;
+  onChange: (val: LinkElement) => void;
+  onRemove: (val: LinkElement) => void;
   order: number;
   setButtonDisabled: (val: boolean) => void;
 };
@@ -22,7 +23,7 @@ const LinkElement = ({
   const [error, setError] = useState("");
   const [dropdown, setDropdown] = useState(false);
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ ...link, link: e.target.value });
   };
 

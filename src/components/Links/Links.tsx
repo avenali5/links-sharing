@@ -25,14 +25,14 @@ const Links = ({ setPreview }: Props) => {
     ]);
   };
 
-  const handleLinkChange = (updatedLink: any) => {
+  const handleLinkChange = (updatedLink: LinkElement) => {
     const updatedLinks = links.map(link =>
       link.id === updatedLink.id ? updatedLink : link
     );
     setLinks(updatedLinks);
   };
 
-  const handleLinkRemove = (updatedLink: any) => {
+  const handleLinkRemove = (updatedLink: LinkElement) => {
     const updatedLinks = links.filter(link => link.id !== updatedLink.id);
     setLinks(updatedLinks);
   };

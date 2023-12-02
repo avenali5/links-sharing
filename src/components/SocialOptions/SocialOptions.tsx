@@ -1,21 +1,22 @@
 import { socialOptions } from "@/utils/constants";
 import useClickOutside from "@/utils/hooks/useClickOutside";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
+import React, { LegacyRef } from "react";
 import { SocialOptionsStyle } from "./SocialOptions.style";
 import { useLinksStore } from "@/store/links";
+import { LinkElement } from "@/utils/types/types";
 
 type Props = {
-  link: any;
-  setDropdown: (val: any) => void;
+  link: LinkElement;
+  setDropdown: (val: boolean) => void;
   dropdown: boolean;
-  onChange: (val: any) => void;
+  onChange: (val: LinkElement) => void;
 };
 
 const SocialOptions = ({ link, setDropdown, dropdown, onChange }: Props) => {
   const { links } = useLinksStore();
 
-  const ref: any = useClickOutside(() => {
+  const ref: LegacyRef<HTMLDivElement> = useClickOutside(() => {
     setDropdown(false);
   });
 

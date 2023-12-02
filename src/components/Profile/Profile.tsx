@@ -9,7 +9,7 @@ const Profile = () => {
   const { profileInfo, setProfileInfo } = useProfileStore();
   const { setSelectedSlide } = useSwiperStore();
 
-  const handleUpdateUser = (e: any) => {
+  const handleUpdateUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProfileInfo({
       ...profileInfo,
