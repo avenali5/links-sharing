@@ -22,6 +22,7 @@ const Preview = ({ preview, setPreview }: Props) => {
   const [shortUrl, setShortUrl] = useState("");
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [finalURL, setFinalURL] = useState("");
   const [showFullURL, setShowFullURL] = useState(false);
   let query: ProfileInfo = {
     fullName: profileInfo.fullName,
@@ -35,7 +36,7 @@ const Preview = ({ preview, setPreview }: Props) => {
     query[link.platform] = link.link;
   });
 
-  const generateShortUrl = () => {
+  const generateShortUrl = async () => {
     const url = `https://${window.location.host}/user?${
       profileInfo.fullName && `fullName=${profileInfo.fullName}`
     }&${profileInfo.job && `job=${profileInfo.job}`}&${
@@ -46,6 +47,7 @@ const Preview = ({ preview, setPreview }: Props) => {
 
     const linkParams = links.map(link => `${link.platform}=${link.link}`);
     const finalUrl = `${url}&${linkParams.join("&")}`;
+    setFinalURL(finalUrl);
 
     setTimeout(() => {
       setModal(true);
@@ -56,7 +58,7 @@ const Preview = ({ preview, setPreview }: Props) => {
     if (hasShortened) {
       setShowFullURL(true);
     } else {
-      shortenUrl(finalUrl)
+      await shortenUrl(finalUrl)
         .then(res => {
           localStorage.setItem("shortened", "true");
           setShortUrl(res);
@@ -68,6 +70,7 @@ const Preview = ({ preview, setPreview }: Props) => {
   };
 
   const copyUrl = (url: string) => {
+    console.log(url);
     navigator.clipboard
       .writeText(url)
       .then(() => {
@@ -124,7 +127,7 @@ const Preview = ({ preview, setPreview }: Props) => {
               This is a portfolio project so shortenings are restricted
             </p>
             <p>Click on the button to copy your full URL</p>
-            <p className='url' onClick={() => copyUrl(window.location.href)}>
+            <p className='url' onClick={() => copyUrl(finalURL)}>
               <Icon icon={!copied ? "mdi:content-copy" : "mdi:check"} />
               Your long URL
             </p>
